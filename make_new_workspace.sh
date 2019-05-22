@@ -10,12 +10,17 @@
 # is the default. 
 template_uut=default_uut
 
+# Set workspace location to the CSS Community edition default.
+# Change this if you chose a custom location or are using an older
+# version of CSS.
+workspace_location=/home/$USER/CSS-Workspaces/
+
 usage() {
     echo ""
     echo "Usage example:"
-    echo "./make_new_workspace -n acq2106_999 -t default_uut"
+    echo "./make_new_workspace.sh -n acq2106_999 -t default_uut"
     echo "The above is the same as:"
-    echo "./make_new_workspace --new_uut=acq2106_999 --template_uut=default_uut"
+    echo "./make_new_workspace.sh --new_uut=acq2106_999 --template_uut=default_uut"
     echo ""
     echo "The new UUT is the UUT which is to be created and the template UUT"\
     "is the workspace to be used to create the new one."
@@ -29,10 +34,12 @@ while [ "$#" -gt 0 ]; do
 case "$1" in
     -n) new_uut="$2"; shift 2;;
     -t) template_uut="$2"; shift 2;;
+    -l) workspace_location=$2; shift 2;;
     -h) usage; shift 2;;
 
     --new_uut=*) new_uut="${1#*=}"; shift 1;;
     --template_uut=*) template_uut="${1#*=}"; shift 1;;
+    --workspace_location=*) workspace_location="${1#*=}"; shift 1;;
     --help=*) usage; shift 1;;
 
     -*) echo "unknown option: $1" >&2; exit 1;;
@@ -40,11 +47,6 @@ case "$1" in
 esac
 done
 
-
-# Set workspace location to the CSS Community edition default.
-# Change this if you chose a custom location or are using an older
-# version of CSS.
-workspace_location=/home/$USER/CSS-Workspaces/
 
 # Determine if the user has input an argument UUT.
 if [ "$new_uut" = "" ]; then
