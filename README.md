@@ -6,6 +6,7 @@ the instances of the original hostname with the new ones.
 Users can change this to whatever template they like. A UUT workspace "default_uut"
  
 Usage example:
+
 ./make_new_workspace -n acq2106_999 -t default_uut
 
 The above is the same as:
